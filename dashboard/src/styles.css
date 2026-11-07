@@ -1,0 +1,93 @@
+:root {
+  --bg: #0b0f14;
+  --panel: #121821;
+  --panel-2: #18202b;
+  --line: #243041;
+  --text: #e6edf3;
+  --muted: #8b98a8;
+  --green: #2ecc71;
+  --red: #ff4d4f;
+  --dark-red: #8b1a1a;
+  --gray: #4b5563;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+code { font-family: ui-monospace, "Cascadia Code", Menlo, monospace; }
+.muted { color: var(--muted); }
+
+.app { display: flex; flex-direction: column; height: 100vh; padding: 20px 24px; gap: 14px; }
+
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 18px; }
+.wordmark { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; }
+.agent { color: var(--muted); font-size: 18px; }
+.pill { font-weight: 800; font-size: 18px; padding: 6px 16px; border-radius: 999px; letter-spacing: 0.06em; }
+.pill-active { background: rgba(46, 204, 113, 0.15); color: var(--green); border: 2px solid var(--green); }
+.pill-revoked { background: rgba(255, 77, 79, 0.18); color: var(--red); border: 2px solid var(--red); }
+.pill-none { background: rgba(75, 85, 99, 0.3); color: #cbd5e1; border: 2px solid var(--gray); }
+
+.actions { display: flex; gap: 12px; align-items: center; }
+button { font: inherit; cursor: pointer; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-revoke { background: var(--red); color: #fff; border: 0; border-radius: 10px; padding: 14px 28px; font-size: 20px; font-weight: 800; box-shadow: 0 0 24px rgba(255, 77, 79, 0.35); }
+.btn-revoke:hover:not(:disabled) { background: #ff2e31; }
+.btn-reset { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; font-size: 14px; }
+
+.task { font-size: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+.task .muted { text-transform: uppercase; font-size: 13px; letter-spacing: 0.08em; margin-right: 10px; }
+
+.error-banner { background: rgba(255, 77, 79, 0.12); border: 1px solid var(--red); color: #ffb4b4; padding: 8px 12px; border-radius: 8px; font-size: 14px; }
+
+.counters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.counter { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+.counter .num { font-size: 40px; font-weight: 800; line-height: 1; }
+.counter .label { color: var(--muted); font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px; }
+.counter.ok .num { color: var(--green); }
+.counter.bad .num { color: var(--red); }
+
+.main { flex: 1; min-height: 0; display: grid; grid-template-columns: 60fr 40fr; gap: 14px; }
+
+.feed { overflow-y: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 6px; }
+.empty { color: var(--muted); padding: 24px; font-size: 18px; }
+.row {
+  width: 100%; text-align: left; color: inherit; background: transparent; border: 1px solid transparent;
+  border-radius: 8px; padding: 10px 12px; display: grid; gap: 4px 12px; align-items: center;
+  grid-template-columns: 78px 76px minmax(0, 1.4fr) minmax(0, 1fr) 96px 72px;
+  grid-template-areas: "time action label path badge source" "reason reason reason reason reason reason";
+  font-size: 16px;
+}
+.row + .row { margin-top: 4px; }
+.row:hover { background: var(--panel-2); }
+.row.selected { border-color: #3b82f6; background: var(--panel-2); }
+.row.flash { animation: flash 1.6s ease-out; }
+@keyframes flash { 0%, 30% { background: rgba(255, 77, 79, 0.55); } 100% { background: transparent; } }
+.time { grid-area: time; color: var(--muted); font-family: ui-monospace, monospace; font-size: 14px; }
+.action { grid-area: action; font-weight: 700; text-transform: uppercase; font-size: 13px; letter-spacing: 0.05em; color: #93c5fd; }
+.label-col { grid-area: label; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.path { grid-area: path; color: var(--muted); font-family: ui-monospace, monospace; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .badge { grid-area: badge; justify-self: start; }
+.row .source { grid-area: source; }
+.reason { grid-area: reason; color: #cbd5e1; font-size: 15px; }
+
+.badge { font-weight: 800; font-size: 13px; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px; }
+.badge-allow { background: rgba(46, 204, 113, 0.18); color: var(--green); }
+.badge-block { background: var(--red); color: #fff; }
+.badge-revoked { background: var(--dark-red); color: #ffd1d1; }
+.source { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; justify-self: start; }
+
+.shot { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; min-height: 0; overflow-y: auto; }
+.shot img { width: 100%; border-radius: 6px; border: 1px solid var(--line); background: #fff; }
+.noshot { flex: 1; display: grid; place-items: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px; min-height: 200px; }
+.shot-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 15px; }
+.shot-reason { font-size: 20px; font-weight: 600; }
+
+@media (max-width: 900px) {
+  .app { height: auto; min-height: 100vh; padding: 14px; }
+  .main { grid-template-columns: 1fr; }
+  .feed { max-height: 60vh; }
+  .wordmark { font-size: 26px; }
+  .row { grid-template-columns: 70px 64px minmax(0, 1fr) 80px; grid-template-areas: "time action label badge" "path path source source" "reason reason reason reason"; }
+}
