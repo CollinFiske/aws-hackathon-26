@@ -1,0 +1,20 @@
+{
+  "name": "saddle-mcp-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "smoke": "tsx scripts/smoke.ts",
+    "portal": "tsx scripts/serve-portal.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "dotenv": "^18.0.9",
+    "playwright": "^1.65.0",
+    "tsx": "^4.23.15",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0"
+  }
+}
