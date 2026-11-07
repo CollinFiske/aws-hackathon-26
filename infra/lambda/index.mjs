@@ -96,7 +96,11 @@ async function postCheck(check) {
     return json(403, result);
   }
 
-  const result = decide(agent, check);
+  let result = decide(agent, check);
+  if (result.decision === 'judge') {
+    // B3 replaces this with the Bedrock judge.
+    result = { decision: 'allow', reason: 'pending judge', source: 'judge' };
+  }
 
   const eventId = await writeEvent(check, result);
   return json(200, { decision: result.decision, reason: result.reason, source: result.source, eventId });

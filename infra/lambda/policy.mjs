@@ -1,4 +1,57 @@
-// Saddle policy. B1 stub: allow everything. B2 replaces this with real rules.
+// Saddle policy: deterministic rules first, Bedrock judge only for what they don't decide.
+// decide(agent, check) -> { decision: 'allow' | 'block' | 'judge', reason, source }
+
+const PORTAL_HOST = () => process.env.PORTAL_HOST || 'localhost:4000';
+
+const hostOf = (url) => { try { return new URL(url).host; } catch { return null; } };
+const pathOf = (url) => { try { return new URL(url).pathname; } catch { return ''; } };
+const isInteraction = (c) => c.action === 'click' || c.action === 'type';
+const SENSITIVE_LABEL = /routing|account number|bank|direct deposit|password|ssn/i;
+
+// Checked first. Any match -> block.
+export const NEVER_RULES = [
+  {
+    name: 'stay-in-portal',
+    test: (c) => c.action === 'navigate' && hostOf(c.pageUrl) !== PORTAL_HOST(),
+    reason: () => 'Navigation outside the student portal',
+  },
+  {
+    name: 'no-direct-deposit-changes',
+    test: (c) => isInteraction(c) && pathOf(c.pageUrl).includes('/deposit'),
+    reason: () => 'Agents may never change direct deposit',
+  },
+  {
+    name: 'no-sensitive-fields',
+    test: (c) => isInteraction(c) && SENSITIVE_LABEL.test(c.elementLabel ?? ''),
+    reason: (c) => `Agents may never touch the "${c.elementLabel}" field`,
+  },
+  {
+    name: 'no-bank-numbers',
+    test: (c) => c.action === 'type' && /^\d{8,17}$/.test(String(c.value ?? '').replace(/[\s-]/g, '')),
+    reason: () => 'Agents may never enter bank numbers',
+  },
+];
+
+// Checked second. Any match -> allow.
+export const ALLOW_RULES = [
+  {
+    name: 'read-inside-portal',
+    test: (c) => c.action === 'navigate' && hostOf(c.pageUrl) === PORTAL_HOST(),
+    reason: () => 'Reading a portal page',
+  },
+  {
+    name: 'safe-navigation-clicks',
+    test: (c) => c.action === 'click' && /^(home|grades|pay|jobs|view|details|back)/i.test((c.elementLabel ?? '').trim()),
+    reason: (c) => `Navigation click on "${c.elementLabel}"`,
+  },
+];
+
 export function decide(agent, check) {
-  return { decision: 'allow', reason: 'stub', source: 'rule' };
+  for (const rule of NEVER_RULES) {
+    if (rule.test(check)) return { decision: 'block', reason: rule.reason(check), source: 'rule', rule: rule.name };
+  }
+  for (const rule of ALLOW_RULES) {
+    if (rule.test(check)) return { decision: 'allow', reason: rule.reason(check), source: 'rule', rule: rule.name };
+  }
+  return { decision: 'judge', reason: 'No rule matched', source: 'judge' };
 }
