@@ -5,6 +5,7 @@ import { DynamoDBDocumentClient, GetCommand, PutCommand, UpdateCommand, QueryCom
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { decide } from './policy.mjs';
+import { judgeAction } from './judge.mjs';
 
 const { AGENTS_TABLE, EVENTS_TABLE, SCREENSHOT_BUCKET } = process.env;
 
@@ -98,8 +99,10 @@ async function postCheck(check) {
 
   let result = decide(agent, check);
   if (result.decision === 'judge') {
-    // B3 replaces this with the Bedrock judge.
-    result = { decision: 'allow', reason: 'pending judge', source: 'judge' };
+    const t0 = Date.now();
+    const verdict = await judgeAction(agent.task ?? '', check);
+    console.log(`judge latency ${Date.now() - t0} ms -> ${verdict.decision}: ${verdict.reason}`);
+    result = { ...verdict, source: 'judge' };
   }
 
   const eventId = await writeEvent(check, result);
