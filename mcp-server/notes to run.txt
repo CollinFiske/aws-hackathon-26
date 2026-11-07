@@ -5,5 +5,8 @@ npx playwright install chromium
 
 
 npm start     -launches the mcp server, which waits for an mcp client like Kiro to send its commands
+
+
 npm run portal
 npm run smoke   -for testing the playwright, must have run portal going, then run smoke on a diff terminal
+

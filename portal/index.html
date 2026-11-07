@@ -2,14 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Demo Student Portal (placeholder)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home - Demo University Portal</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <p><strong>DEMO ONLY - fake data, not a real university system.</strong></p>
-  <h1>Demo Student Portal</h1>
-  <p>Placeholder page so the MCP server has something to load. Replace with the real demo portal.</p>
-  <label for="search">Search</label>
-  <input id="search" placeholder="Search the portal">
-  <button>Go</button>
+  <div class="demo-banner">DEMO PORTAL - fake data for a hackathon</div>
+  <nav class="nav"><div class="nav-inner">
+    <a class="brand" href="index.html">Demo University</a>
+    <a href="index.html" aria-current="page">Home</a>
+    <a href="grades.html">Grades</a>
+    <a href="pay.html">Pay</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="deposit.html">Direct Deposit</a>
+  </div></nav>
+
+  <main>
+    <h1>Welcome back, Alex Rivera</h1>
+    <p class="subtitle">Student ID D-000123 · Fall 2026</p>
+
+    <section class="card">
+      <h2>Quick links</h2>
+      <div class="grid">
+        <a class="tile" href="grades.html"><strong>Grades</strong><span>Fall 2026 grades and GPA</span></a>
+        <a class="tile" href="pay.html"><strong>Pay</strong><span>Timesheets and pay stubs</span></a>
+        <a class="tile" href="jobs.html"><strong>Jobs</strong><span>On-campus job postings</span></a>
+        <a class="tile" href="deposit.html"><strong>Direct Deposit</strong><span>Where your pay goes</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>Demo University is fictional. All data on this site is fake.</footer>
 </body>
 </html>
