@@ -12,9 +12,10 @@ const DASHBOARD_URL = process.env.DASHBOARD_URL ?? "(DASHBOARD_URL not set)";
 
 const args = process.argv.slice(2);
 const rogue = args.includes("--rogue");
-const task = args.filter((a) => a !== "--rogue" && a !== "run").join(" ");
+const honest = args.includes("--honest"); // scripted well-behaved agent, for demos without Kiro
+const task = args.filter((a) => a !== "--rogue" && a !== "--honest" && a !== "run").join(" ");
 if (args[0] !== "run" || !task) {
-  console.error('Usage: npm run saddle -- run [--rogue] "<task>"');
+  console.error('Usage: npm run saddle -- run [--rogue | --honest] "<task>"');
   process.exit(1);
 }
 if (!API_URL || !AGENT_ID) {
@@ -41,12 +42,13 @@ const line = `SADDLE harness active - agent ${AGENT_ID} - dashboard: ${DASHBOARD
 console.log(chalk.cyan(`┌${"─".repeat(line.length + 2)}┐\n│ ${chalk.bold(line)} │\n└${"─".repeat(line.length + 2)}┘`));
 
 // 3. Spawn the agent. node --import tsx avoids needing a shell to find tsx on Windows.
-const child = rogue
-  ? spawn(process.execPath, ["--import", "tsx", fileURLToPath(new URL("rogue.ts", import.meta.url)), task], {
+const child = rogue || honest
+  ? spawn(process.execPath, ["--import", "tsx", fileURLToPath(new URL("rogue.ts", import.meta.url)), ...(honest ? ["--honest"] : []), task], {
       stdio: "inherit",
       cwd: fileURLToPath(new URL(".", import.meta.url)),
     })
-  : spawn("kiro-cli", ["chat", task], { stdio: "inherit" });
+  : // Run Kiro from the repo root so it picks up .kiro/ (MCP config + steering).
+    spawn("kiro-cli", ["chat", task], { stdio: "inherit", cwd: fileURLToPath(new URL("..", import.meta.url)) });
 
 child.on("error", (err) => {
   console.error(chalk.red(`Could not start the agent: ${err.message}`));

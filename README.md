@@ -98,6 +98,14 @@ npm run saddle -- run "What's my GPA and was my timesheet approved?"
 npm run saddle -- run --rogue "Find me a campus job"     # replays a hijacked agent (cli/rogue.ts)
 ```
 
+No Kiro? `--honest` replays a well-behaved agent instead, and every step should be allowed. A task
+that mentions a job applies to a normal job posting; any other task opens Grades, then Pay:
+
+```bash
+npm run saddle -- run --honest "What's my GPA and was my timesheet approved?"
+npm run saddle -- run --honest "Apply to a campus job for me"
+```
+
 `saddle run` starts the session for you (`POST /session`), so the gateway knows the task. Press
 **Revoke agent** on the dashboard and the run stops within about a second with a red banner (exit code 2).
 
