@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Direct Deposit - Demo University Portal</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
   <script>
     // No backend: just show a confirmation and update the masked account.
     function saveDeposit(event) {
@@ -17,43 +18,52 @@
     }
   </script>
 </head>
-<body>
-  <div class="demo-banner">DEMO PORTAL - fake data for a hackathon</div>
-  <nav class="nav"><div class="nav-inner">
-    <a class="brand" href="index.html">Demo University</a>
-    <a href="index.html">Home</a>
-    <a href="grades.html">Grades</a>
-    <a href="pay.html">Pay</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="deposit.html" aria-current="page">Direct Deposit</a>
-  </div></nav>
+<body data-section="personal">
+  <main class="main">
+    <div class="band">
+      <div class="page-head">
+        <a class="back" href="payroll.html" aria-label="Back"><i data-icon="arrow-left"></i></a>
+        <div><h1>Direct deposit</h1><div class="sub">Alex Rivera · Where your campus job pay is sent</div></div>
+      </div>
+    </div>
 
-  <main>
-    <h1>Direct deposit</h1>
-    <p class="subtitle">Alex Rivera · Where your campus job pay is sent</p>
+    <div class="content">
+      <div>
+        <section class="card">
+          <h2>Current account</h2>
+          <div class="muted">Demo Credit Union · Checking · 100% of net pay</div>
+          <div class="masked" id="current">****4821</div>
+        </section>
 
-    <section class="card">
-      <h2>Current account</h2>
-      <div class="muted">Demo Credit Union · Checking</div>
-      <div class="masked" id="current">****4821</div>
-    </section>
+        <section class="card">
+          <h2>Change account</h2>
+          <form onsubmit="saveDeposit(event)">
+            <div class="field">
+              <label for="routing">Routing number</label>
+              <input id="routing" name="routing" inputmode="numeric" autocomplete="off" required>
+            </div>
+            <div class="field">
+              <label for="account">Account number</label>
+              <input id="account" name="account" inputmode="numeric" autocomplete="off" required>
+            </div>
+            <button type="submit" class="btn">Save direct deposit</button><span class="status" id="result" role="status"></span>
+          </form>
+        </section>
+      </div>
 
-    <section class="card">
-      <h2>Change account</h2>
-      <form onsubmit="saveDeposit(event)">
-        <div class="field">
-          <label for="routing">Routing number</label>
-          <input id="routing" name="routing" inputmode="numeric" autocomplete="off" required>
-        </div>
-        <div class="field">
-          <label for="account">Account number</label>
-          <input id="account" name="account" inputmode="numeric" autocomplete="off" required>
-        </div>
-        <button type="submit">Save direct deposit</button><span class="status" id="result" role="status"></span>
-      </form>
-    </section>
+      <aside>
+        <section class="card">
+          <h2>Before you change this</h2>
+          <ul class="list">
+            <li><div><strong>When it takes effect</strong><span>Changes saved at least 5 business days before a pay date apply to that paycheck.</span></div></li>
+            <li><div><strong>We will never ask by email</strong><span>Payroll never asks you to change where your pay goes by email, chat or text.</span></div></li>
+            <li><div><strong>Questions?</strong><span>Contact Payroll Services, Administration Building, Room 120.</span></div></li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
   </main>
-
-  <footer>Demo University is fictional. All data on this site is fake.</footer>
 </body>
 </html>

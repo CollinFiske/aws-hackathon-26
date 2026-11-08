@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 300" preserveAspectRatio="xMidYMid slice">
+  <!-- Generic illustrated campus quad for the fictional Demo University. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6fb2e6"/>
+      <stop offset="1" stop-color="#cfe8f8"/>
+    </linearGradient>
+    <linearGradient id="lawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6aa04a"/>
+      <stop offset="1" stop-color="#3f7a2e"/>
+    </linearGradient>
+    <linearGradient id="path" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9cbb3"/>
+      <stop offset="1" stop-color="#b9a688"/>
+    </linearGradient>
+    <g id="palm">
+      <path d="M0 0 C2 -40 -2 -90 4 -140" stroke="#7a6247" stroke-width="7" fill="none"/>
+      <g fill="#3e7a34">
+        <path d="M4 -140 C-30 -150 -60 -135 -75 -110 C-45 -128 -20 -132 4 -136z"/>
+        <path d="M4 -140 C40 -152 70 -136 82 -112 C50 -130 26 -133 4 -136z"/>
+        <path d="M4 -140 C-18 -165 -45 -170 -66 -160 C-38 -158 -16 -150 4 -138z"/>
+        <path d="M4 -140 C26 -168 54 -172 72 -160 C44 -158 22 -150 4 -138z"/>
+        <path d="M4 -140 C0 -170 6 -185 16 -192 C10 -172 10 -156 6 -138z"/>
+      </g>
+    </g>
+    <g id="tree">
+      <rect x="-4" y="-30" width="8" height="30" fill="#6b5340"/>
+      <circle cx="0" cy="-52" r="34" fill="#4f8a3c"/>
+      <circle cx="-22" cy="-40" r="22" fill="#467f35"/>
+      <circle cx="22" cy="-40" r="24" fill="#5a9645"/>
+    </g>
+    <g id="bush">
+      <ellipse cx="0" cy="0" rx="46" ry="18" fill="#4b8638"/>
+      <ellipse cx="-20" cy="-6" rx="24" ry="14" fill="#5a9645"/>
+      <ellipse cx="22" cy="-4" rx="26" ry="14" fill="#437c33"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="300" fill="url(#sky)"/>
+  <g fill="#fff" opacity="0.8">
+    <ellipse cx="220" cy="48" rx="70" ry="14"/><ellipse cx="270" cy="40" rx="44" ry="14"/>
+    <ellipse cx="1180" cy="36" rx="80" ry="13"/><ellipse cx="1240" cy="30" rx="40" ry="12"/>
+  </g>
+
+  <!-- left hall -->
+  <rect x="-20" y="80" width="520" height="150" fill="#efe1c3"/>
+  <path d="M-30 80 L240 46 L510 80z" fill="#b5523b"/>
+  <g fill="#7d8f9e">
+    <rect x="20" y="108" width="26" height="36"/><rect x="80" y="108" width="26" height="36"/><rect x="140" y="108" width="26" height="36"/>
+    <rect x="200" y="108" width="26" height="36"/><rect x="260" y="108" width="26" height="36"/><rect x="320" y="108" width="26" height="36"/>
+    <rect x="380" y="108" width="26" height="36"/><rect x="440" y="108" width="26" height="36"/>
+  </g>
+  <g fill="#d8c7a4">
+    <path d="M10 230v-46a22 22 0 0 1 44 0v46z"/><path d="M80 230v-46a22 22 0 0 1 44 0v46z"/><path d="M150 230v-46a22 22 0 0 1 44 0v46z"/>
+    <path d="M220 230v-46a22 22 0 0 1 44 0v46z"/><path d="M290 230v-46a22 22 0 0 1 44 0v46z"/><path d="M360 230v-46a22 22 0 0 1 44 0v46z"/>
+    <path d="M430 230v-46a22 22 0 0 1 44 0v46z"/>
+  </g>
+
+  <!-- right hall -->
+  <rect x="1100" y="78" width="520" height="152" fill="#f1e4c8"/>
+  <path d="M1090 78 L1360 44 L1630 78z" fill="#b5523b"/>
+  <g fill="#7d8f9e">
+    <rect x="1130" y="106" width="26" height="36"/><rect x="1190" y="106" width="26" height="36"/><rect x="1250" y="106" width="26" height="36"/>
+    <rect x="1310" y="106" width="26" height="36"/><rect x="1370" y="106" width="26" height="36"/><rect x="1430" y="106" width="26" height="36"/>
+    <rect x="1490" y="106" width="26" height="36"/><rect x="1550" y="106" width="26" height="36"/>
+    <rect x="1130" y="168" width="26" height="36"/><rect x="1190" y="168" width="26" height="36"/><rect x="1250" y="168" width="26" height="36"/>
+    <rect x="1310" y="168" width="26" height="36"/><rect x="1370" y="168" width="26" height="36"/><rect x="1430" y="168" width="26" height="36"/>
+    <rect x="1490" y="168" width="26" height="36"/><rect x="1550" y="168" width="26" height="36"/>
+  </g>
+
+  <!-- library with clock tower at the end of the quad -->
+  <rect x="640" y="120" width="320" height="100" fill="#e9dcbf"/>
+  <path d="M630 120 L800 96 L970 120z" fill="#a9493a"/>
+  <rect x="770" y="40" width="60" height="100" fill="#efe3c9"/>
+  <path d="M764 40 L800 8 L836 40z" fill="#a9493a"/>
+  <circle cx="800" cy="66" r="14" fill="#fff" stroke="#8a7a5c" stroke-width="2"/>
+  <path d="M800 66 V57 M800 66 L807 70" stroke="#4a3f2f" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#7d8f9e">
+    <rect x="665" y="140" width="22" height="30"/><rect x="705" y="140" width="22" height="30"/><rect x="873" y="140" width="22" height="30"/><rect x="913" y="140" width="22" height="30"/>
+  </g>
+  <path d="M780 220v-44a20 20 0 0 1 40 0v44z" fill="#6f5a43"/>
+
+  <!-- lawn and path -->
+  <rect x="0" y="210" width="1600" height="90" fill="url(#lawn)"/>
+  <path d="M770 212 H830 L1010 300 H590z" fill="url(#path)"/>
+
+  <use href="#bush" x="560" y="222"/><use href="#bush" x="1040" y="222"/>
+  <use href="#bush" x="300" y="236"/><use href="#bush" x="1300" y="238"/>
+  <use href="#tree" x="80" y="232"/><use href="#tree" x="1530" y="234"/>
+  <use href="#tree" x="470" y="226"/><use href="#tree" x="1150" y="228"/>
+  <use href="#palm" x="630" y="226"/><use href="#palm" x="980" y="226"/>
+  <use href="#palm" x="230" y="246"/><use href="#palm" x="1400" y="248"/>
+</svg>

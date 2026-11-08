@@ -5,33 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home - Demo University Portal</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
 </head>
-<body>
-  <div class="demo-banner">DEMO PORTAL - fake data for a hackathon</div>
-  <nav class="nav"><div class="nav-inner">
-    <a class="brand" href="index.html">Demo University</a>
-    <a href="index.html" aria-current="page">Home</a>
-    <a href="grades.html">Grades</a>
-    <a href="pay.html">Pay</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="deposit.html">Direct Deposit</a>
-  </div></nav>
+<body data-section="home" data-page="home">
+  <main class="main">
+    <div class="hero" role="img" aria-label="Demo University campus quad"></div>
 
-  <main>
-    <h1>Welcome back, Alex Rivera</h1>
-    <p class="subtitle">Student ID D-000123 · Fall 2026</p>
+    <h1 class="greet">Hi There</h1>
+    <form class="search hero-search" role="search" data-search>
+      <i data-icon="search"></i><input type="search" placeholder="Search" aria-label="Search">
+    </form>
 
-    <section class="card">
-      <h2>Quick links</h2>
-      <div class="grid">
-        <a class="tile" href="grades.html"><strong>Grades</strong><span>Fall 2026 grades and GPA</span></a>
-        <a class="tile" href="pay.html"><strong>Pay</strong><span>Timesheets and pay stubs</span></a>
-        <a class="tile" href="jobs.html"><strong>Jobs</strong><span>On-campus job postings</span></a>
-        <a class="tile" href="deposit.html"><strong>Direct Deposit</strong><span>Where your pay goes</span></a>
+    <div class="pills">
+      <a class="pill" href="time.html">Enter My Time</a>
+      <a class="pill" href="payroll.html#payslips">My Payslips</a>
+      <a class="pill" href="absence.html">Request Absence</a>
+      <a class="pill" href="absence.html#balance">Time Off Balance</a>
+      <a class="pill" href="expenses.html">Create Expense Report</a>
+    </div>
+
+    <div class="home-grid">
+      <div>
+        <section class="card day-card">
+          <div class="card-head">
+            <h2 data-today>Sunday, November 8th</h2>
+            <button type="button" class="icon-btn small" aria-label="Card options" data-demo><i data-icon="kebab"></i></button>
+          </div>
+          <div class="empty"><i data-icon="check-circle"></i><div>No To-Dos</div></div>
+          <hr>
+          <h3 class="with-icon"><i data-icon="flag"></i>Updates</h3>
+          <ul class="updates">
+            <li><a href="academics.html"><strong>Registration Appointment Starting Soon</strong><span>Your Spring 2027 registration appointment opens Mon, Nov 16 at 9:00 AM.</span></a></li>
+            <li><a href="time.html"><strong>Time Entry Approved</strong><span>Library Assistant · week of Nov 2 · approved by Jordan Lee</span></a></li>
+            <li><a href="payroll.html#payslips"><strong>New Payslip Available</strong><span>Pay date Nov 5, 2026 · net pay $271.25</span></a></li>
+            <li><a href="finances.html"><strong>Spring 2027 Statement Coming Soon</strong><span>Your Spring 2027 tuition statement will post on Dec 1.</span></a></li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>Your Top Apps</h2>
+          <div class="apps">
+            <a class="app" href="academics.html"><span class="app-icon"><i data-icon="cap"></i></span>Academics</a>
+            <a class="app" href="finances.html"><span class="app-icon"><i data-icon="wallet"></i></span>Finances</a>
+            <a class="app" href="pay.html"><span class="app-icon"><i data-icon="receipt"></i></span>Pay</a>
+            <a class="app" href="time.html"><span class="app-icon"><i data-icon="clock"></i></span>Time</a>
+            <a class="app" href="jobs.html"><span class="app-icon"><i data-icon="briefcase"></i></span>Career</a>
+            <a class="app" href="personal-info.html"><span class="app-icon"><i data-icon="id"></i></span>Personal Information</a>
+          </div>
+        </section>
       </div>
-    </section>
-  </main>
 
-  <footer>Demo University is fictional. All data on this site is fake.</footer>
+      <div>
+        <section class="card">
+          <h2>Important Dates</h2>
+          <ul class="dates">
+            <li><div class="date"><span>Nov</span><b>16</b></div>
+              <div><a class="date-title" href="academics.html">Registration Opens <i data-icon="chevron-right"></i></a><small>Spring 2027 · your appointment is at 9:00 AM</small></div></li>
+            <li><div class="date"><span>Nov</span><b>26</b></div>
+              <div><a class="date-title" href="academics.html#calendar">Holiday <i data-icon="chevron-right"></i></a><small>Thanksgiving Day</small></div></li>
+            <li><div class="date"><span>Nov</span><b>27</b></div>
+              <div><a class="date-title" href="academics.html#calendar">Holiday <i data-icon="chevron-right"></i></a><small>Day after Thanksgiving</small></div></li>
+            <li><div class="date"><span>Dec</span><b>7</b></div>
+              <div><a class="date-title" href="academics.html#calendar">Final Exams Begin <i data-icon="chevron-right"></i></a><small>Fall 2026 final exam week, Dec 7 - Dec 11</small></div></li>
+          </ul>
+          <a class="view-all" href="academics.html#calendar">View Calendar <i data-icon="chevron-right"></i></a>
+        </section>
+
+        <section class="card">
+          <h2>Announcements</h2>
+          <ul class="list">
+            <li><span class="app-icon"><i data-icon="calendar"></i></span>
+              <div><strong>Spring 2027 Class Schedule Is Live</strong><span>Browse sections and build your plan before your registration appointment.</span></div></li>
+            <li><span class="app-icon"><i data-icon="star"></i></span>
+              <div><strong>Free Flu Shot Clinic</strong><span>Thursday, Nov 12, 10 AM - 3 PM at the Student Health Center.</span></div></li>
+            <li><span class="app-icon"><i data-icon="book"></i></span>
+              <div><strong>Library Extended Hours for Finals</strong><span>The main library is open until 2 AM from Dec 3 to Dec 11.</span></div></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
+  </main>
 </body>
 </html>

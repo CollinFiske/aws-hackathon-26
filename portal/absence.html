@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Absence - Demo University Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
+</head>
+<body data-section="personal">
+  <main class="main">
+    <div class="band">
+      <div class="page-head">
+        <a class="back" href="index.html" aria-label="Back"><i data-icon="arrow-left"></i></a>
+        <h1>Absence</h1>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+        <section class="card" id="balance">
+          <h2>Time Off Balance</h2>
+          <div class="stats">
+            <div><b>6.5</b><span>Hours Available</span></div>
+            <div><b>9.0</b><span>Hours Accrued</span></div>
+            <div><b>2.5</b><span>Hours Used</span></div>
+          </div>
+          <p class="muted" style="text-align:center;margin:0">Paid Sick Leave · balance as of Nov 7, 2026</p>
+        </section>
+
+        <section class="card">
+          <h2>Request Absence</h2>
+          <form data-confirm="Absence request sent to Jordan Lee (demo only).">
+            <div class="field">
+              <label for="abs-type">Type</label>
+              <select id="abs-type" name="type">
+                <option>Paid Sick Leave</option>
+                <option>Unpaid Time Off</option>
+                <option>Jury Duty</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="abs-date">Date</label>
+              <input id="abs-date" name="date" type="date">
+            </div>
+            <div class="field">
+              <label for="abs-hours">Hours</label>
+              <input id="abs-hours" name="hours" inputmode="decimal" placeholder="0">
+            </div>
+            <button type="submit" class="btn">Submit Request</button><span class="status" role="status"></span>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Absence History</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Type</th><th class="num">Hours</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Oct 8, 2026</td><td>Paid Sick Leave</td><td class="num">2.5</td><td><span class="tag">Approved</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card">
+          <h2>Upcoming Holidays</h2>
+          <ul class="list">
+            <li><div><strong>Thanksgiving Day</strong><span>Thu, Nov 26</span></div></li>
+            <li><div><strong>Day after Thanksgiving</strong><span>Fri, Nov 27</span></div></li>
+            <li><div><strong>Winter Closure</strong><span>Dec 24 - Jan 1</span></div></li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
+  </main>
+</body>
+</html>

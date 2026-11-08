@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payroll - Demo University Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
+</head>
+<body data-section="personal">
+  <main class="main">
+    <div class="band">
+      <div class="page-head">
+        <a class="back" href="index.html" aria-label="Back"><i data-icon="arrow-left"></i></a>
+        <div><h1>Payroll</h1><div class="sub">Alex Rivera · paid twice a month on the 5th and 20th</div></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+        <section class="card">
+          <h2>Year to Date · 2026</h2>
+          <div class="stats money">
+            <div><b>$2,014.50</b><span>Gross Pay</span></div>
+            <div><b>$114.60</b><span>Taxes</span></div>
+            <div><b>$1,899.90</b><span>Net Pay</span></div>
+          </div>
+        </section>
+
+        <section class="card" id="payslips">
+          <h2>My Payslips</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Pay date</th><th>Period</th><th class="num">Hours</th><th class="num">Gross</th><th class="num">Net</th></tr></thead>
+              <tbody>
+                <tr><td>Nov 5, 2026</td><td>Oct 16 - Oct 31</td><td class="num">15.5</td><td class="num">$271.25</td><td class="num">$271.25</td></tr>
+                <tr><td>Oct 20, 2026</td><td>Oct 1 - Oct 15</td><td class="num">13.5</td><td class="num">$236.25</td><td class="num">$236.25</td></tr>
+                <tr><td>Oct 5, 2026</td><td>Sep 16 - Sep 30</td><td class="num">12.0</td><td class="num">$210.00</td><td class="num">$210.00</td></tr>
+                <tr><td>Sep 20, 2026</td><td>Sep 1 - Sep 15</td><td class="num">14.0</td><td class="num">$245.00</td><td class="num">$245.00</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card" id="elections">
+          <h2>Payment Elections</h2>
+          <dl class="kv">
+            <dt>Payment method</dt><dd>Direct deposit</dd>
+            <dt>Account</dt><dd>Demo Credit Union · Checking ****4821</dd>
+            <dt>Distribution</dt><dd>100% of net pay</dd>
+            <dt>Last changed</dt><dd>Aug 24, 2026</dd>
+          </dl>
+          <p style="margin:18px 0 0"><a class="btn outline" href="deposit.html">Manage Payment Elections</a></p>
+        </section>
+
+        <section class="card" id="withholding">
+          <h2>Withholding Elections</h2>
+          <dl class="kv">
+            <dt>Federal (W-4)</dt><dd>Single · no extra withholding</dd>
+            <dt>State</dt><dd>Single · 1 allowance</dd>
+            <dt>FICA</dt><dd>Exempt while enrolled at least half time</dd>
+          </dl>
+        </section>
+
+        <section class="card" id="tax">
+          <h2>My Tax Documents</h2>
+          <ul class="list">
+            <li><div><strong>2025 Form W-2</strong><span>Issued Jan 28, 2026</span></div><a class="btn outline" style="margin-left:auto" href="#" data-demo>View</a></li>
+          </ul>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card links-card">
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Payroll</h2>
+            <a href="#payslips"><span>My Payslips</span><i data-icon="chevron-right"></i></a>
+            <a href="#elections"><span>Payment Elections</span><i data-icon="chevron-right"></i></a>
+            <a href="#withholding"><span>Withholding Elections</span><i data-icon="chevron-right"></i></a>
+            <a href="#tax"><span>My Tax Documents</span><i data-icon="chevron-right"></i></a>
+          </div>
+        </section>
+        <section class="card">
+          <h2>Next Pay Date</h2>
+          <div class="big-stat">Nov 20</div>
+          <p class="muted" style="margin-top:6px">For hours worked Nov 1 - Nov 15. Submit time by Nov 16.</p>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
+  </main>
+</body>
+</html>

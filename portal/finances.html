@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finances - Demo University Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
+</head>
+<body data-section="student">
+  <main class="main">
+    <div class="band">
+      <div class="page-head">
+        <a class="back" href="index.html" aria-label="Back"><i data-icon="arrow-left"></i></a>
+        <h1>Finances</h1>
+        <button type="button" class="icon-btn head-gear" aria-label="Page settings" data-demo><i data-icon="gear"></i></button>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon maroon"><i data-icon="wallet"></i></div>
+          <div>
+            <h2>Paid in Full</h2>
+            <p>Your Fall 2026 balance is $0.00.<br>The Spring 2027 statement posts on Dec 1 and is due Jan 4.</p>
+            <a class="feature-link" href="#activity">View Account Activity</a>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon blue"><i data-icon="cap"></i></div>
+          <div>
+            <h2>Financial Aid</h2>
+            <p>Your 2026-27 aid package has been accepted.</p>
+            <a class="feature-link" href="#aid">View My Financial Aid</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+        <section class="card">
+          <h2>My Account</h2>
+          <div class="stats money">
+            <div><b>$0.00</b><span>Current Balance</span></div>
+            <div><b>$0.00</b><span>Pending Aid</span></div>
+            <div><b>Jan 4</b><span>Next Due Date</span></div>
+          </div>
+        </section>
+
+        <section class="card" id="activity">
+          <h2>Fall 2026 Charges and Payments</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Description</th><th class="num">Amount</th></tr></thead>
+              <tbody>
+                <tr><td>Aug 15</td><td>Tuition, Fall 2026 (full time)</td><td class="num">$14,200.00</td></tr>
+                <tr><td>Aug 15</td><td>Student Activity Fee</td><td class="num">$95.00</td></tr>
+                <tr><td>Aug 15</td><td>Student Health Fee</td><td class="num">$310.00</td></tr>
+                <tr><td>Aug 22</td><td>Demo University Grant</td><td class="num">-$6,500.00</td></tr>
+                <tr><td>Aug 22</td><td>Federal Direct Subsidized Loan</td><td class="num">-$1,750.00</td></tr>
+                <tr><td>Sep 10</td><td>Payment, thank you</td><td class="num">-$6,355.00</td></tr>
+                <tr class="total"><td></td><td>Balance</td><td class="num">$0.00</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card" id="aid">
+          <h2>Financial Aid Awards · 2026-27</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Award</th><th class="num">Fall</th><th class="num">Winter/Spring</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Demo University Grant</td><td class="num">$6,500</td><td class="num">$6,500</td><td><span class="tag">Accepted</span></td></tr>
+                <tr><td>Federal Direct Subsidized Loan</td><td class="num">$1,750</td><td class="num">$1,750</td><td><span class="tag">Accepted</span></td></tr>
+                <tr><td>Federal Work-Study</td><td class="num">$1,500</td><td class="num">$1,500</td><td><span class="tag info">Earned through job</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card links-card">
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Billing and Payments</h2>
+            <a href="#" data-demo><span>Make a Payment</span><i data-icon="chevron-right"></i></a>
+            <a href="#activity"><span>View My Account Activity</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>View My Statements</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>Manage Payment Plans</span><i data-icon="chevron-right"></i></a>
+          </div>
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Financial Aid</h2>
+            <a href="#aid"><span>View My Financial Aid</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>View My Financial Aid To Do Items</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>View My Satisfactory Academic Progress</span><i data-icon="chevron-right"></i></a>
+          </div>
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Tax Forms</h2>
+            <a href="#" data-demo><span>View My 1098-T</span><i data-icon="chevron-right"></i></a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
+  </main>
+</body>
+</html>

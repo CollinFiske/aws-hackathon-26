@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time - Demo University Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
+</head>
+<body data-section="personal">
+  <main class="main">
+    <div class="band">
+      <div class="page-head">
+        <a class="back" href="index.html" aria-label="Back"><i data-icon="arrow-left"></i></a>
+        <div><h1>Time</h1><div class="sub">Library Assistant · $17.50/hour</div></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+        <section class="card">
+          <h2>Enter My Time · Week of Nov 9, 2026</h2>
+          <form data-confirm="Time submitted for approval (demo only).">
+            <div class="hours">
+              <div><label for="h-mon">Mon Nov 9</label><input id="h-mon" inputmode="decimal" placeholder="0"></div>
+              <div><label for="h-tue">Tue Nov 10</label><input id="h-tue" inputmode="decimal" placeholder="0"></div>
+              <div><label for="h-wed">Wed Nov 11</label><input id="h-wed" inputmode="decimal" placeholder="0"></div>
+              <div><label for="h-thu">Thu Nov 12</label><input id="h-thu" inputmode="decimal" placeholder="0"></div>
+              <div><label for="h-fri">Fri Nov 13</label><input id="h-fri" inputmode="decimal" placeholder="0"></div>
+            </div>
+            <button type="submit" class="btn">Submit Time</button><span class="status" role="status"></span>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>My Time Entries</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Week of</th><th class="num">Mon</th><th class="num">Tue</th><th class="num">Wed</th><th class="num">Thu</th><th class="num">Fri</th><th class="num">Total</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Nov 2</td><td class="num">3.0</td><td class="num">2.5</td><td class="num">3.0</td><td class="num">0</td><td class="num">4.0</td><td class="num">12.5</td><td><span class="tag">Approved</span></td></tr>
+                <tr><td>Oct 26</td><td class="num">2.0</td><td class="num">0</td><td class="num">3.0</td><td class="num">0</td><td class="num">3.0</td><td class="num">8.0</td><td><span class="tag">Approved</span></td></tr>
+                <tr><td>Oct 19</td><td class="num">2.5</td><td class="num">0</td><td class="num">2.5</td><td class="num">2.5</td><td class="num">0</td><td class="num">7.5</td><td><span class="tag">Approved</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card">
+          <h2>Time Summary</h2>
+          <dl class="kv">
+            <dt>This pay period</dt><dd>12.5 hours</dd>
+            <dt>Last pay period</dt><dd>15.5 hours</dd>
+            <dt>Weekly limit</dt><dd>20 hours while classes are in session</dd>
+            <dt>Submit by</dt><dd>Mon, Nov 16 at 10:00 AM</dd>
+          </dl>
+        </section>
+        <section class="card links-card">
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Time</h2>
+            <a href="#" data-demo><span>Time Clock History</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>View My Schedule</span><i data-icon="chevron-right"></i></a>
+            <a href="absence.html"><span>Request Absence</span><i data-icon="chevron-right"></i></a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
+  </main>
+</body>
+</html>

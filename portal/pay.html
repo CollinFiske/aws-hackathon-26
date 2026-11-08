@@ -5,48 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pay - Demo University Portal</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
 </head>
-<body>
-  <div class="demo-banner">DEMO PORTAL - fake data for a hackathon</div>
-  <nav class="nav"><div class="nav-inner">
-    <a class="brand" href="index.html">Demo University</a>
-    <a href="index.html">Home</a>
-    <a href="grades.html">Grades</a>
-    <a href="pay.html" aria-current="page">Pay</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="deposit.html">Direct Deposit</a>
-  </div></nav>
+<body data-section="personal">
+  <main class="main">
+    <div class="band">
+      <div class="page-head">
+        <a class="back" href="index.html" aria-label="Back"><i data-icon="arrow-left"></i></a>
+        <div><h1>Benefits and Pay</h1><div class="sub">Alex Rivera · On-campus job: Library Assistant · $17.50/hour</div></div>
+      </div>
+    </div>
 
-  <main>
-    <h1>Pay</h1>
-    <p class="subtitle">Alex Rivera · On-campus job: Library Assistant · $17.50/hour</p>
+    <div class="content">
+      <div>
+        <section class="card">
+          <h2>Timesheet</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Week of</th><th>Job</th><th class="num">Hours</th><th class="num">Status</th></tr></thead>
+              <tbody>
+                <tr><td>Nov 2, 2026</td><td>Library Assistant</td><td class="num">12.5</td><td class="num"><span class="badge">Approved</span></td></tr>
+                <tr><td>Oct 26, 2026</td><td>Library Assistant</td><td class="num">8.0</td><td class="num"><span class="badge">Approved</span></td></tr>
+                <tr><td>Oct 19, 2026</td><td>Library Assistant</td><td class="num">7.5</td><td class="num"><span class="badge">Approved</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-    <section class="card">
-      <h2>Timesheet</h2>
-      <table>
-        <thead>
-          <tr><th>Week of</th><th>Job</th><th class="num">Hours</th><th class="num">Status</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Nov 2, 2026</td><td>Library Assistant</td><td class="num">12.5</td><td class="num"><span class="badge">Approved</span></td></tr>
-        </tbody>
-      </table>
-    </section>
+        <section class="card">
+          <h2>Pay stubs</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Pay date</th><th>Pay period</th><th class="num">Hours</th><th class="num">Net pay</th></tr></thead>
+              <tbody>
+                <tr><td>Oct 20, 2026</td><td>Oct 1 - Oct 15</td><td class="num">13.5</td><td class="num">$236.25</td></tr>
+                <tr><td>Nov 5, 2026</td><td>Oct 16 - Oct 31</td><td class="num">15.5</td><td class="num">$271.25</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin:14px 0 0"><a class="view-all" href="payroll.html#payslips">View all payslips <i data-icon="chevron-right"></i></a></p>
+        </section>
 
-    <section class="card">
-      <h2>Pay stubs</h2>
-      <table>
-        <thead>
-          <tr><th>Pay date</th><th>Pay period</th><th class="num">Hours</th><th class="num">Net pay</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Oct 20, 2026</td><td>Oct 1 - Oct 15</td><td class="num">13.5</td><td class="num">$236.25</td></tr>
-          <tr><td>Nov 5, 2026</td><td>Oct 16 - Oct 31</td><td class="num">15.5</td><td class="num">$271.25</td></tr>
-        </tbody>
-      </table>
-    </section>
+        <section class="card">
+          <h2>Benefits</h2>
+          <p>As a student employee you are eligible for these benefits.</p>
+          <div class="req"><div>Paid Sick Leave<small>1 hour for every 30 hours worked</small></div><div>6.5 hours</div><div><span class="tag">Enrolled</span></div></div>
+          <div class="req"><div>Bookstore Discount<small>10% off at the campus bookstore</small></div><div>Active</div><div><span class="tag">Enrolled</span></div></div>
+          <div class="req"><div>Transit Pass<small>Discounted county transit pass</small></div><div>$30/term</div><div><span class="tag gray">Not Enrolled</span></div></div>
+          <div class="req"><div>Retirement Plan<small>Student employees are not eligible</small></div><div>-</div><div><span class="tag gray">Not Eligible</span></div></div>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card links-card">
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Pay</h2>
+            <a href="payroll.html#payslips"><span>My Payslips</span><i data-icon="chevron-right"></i></a>
+            <a href="payroll.html#elections"><span>Payment Elections</span><i data-icon="chevron-right"></i></a>
+            <a href="payroll.html#withholding"><span>Withholding Elections</span><i data-icon="chevron-right"></i></a>
+            <a href="payroll.html#tax"><span>My Tax Documents</span><i data-icon="chevron-right"></i></a>
+          </div>
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Benefits</h2>
+            <a href="#" data-demo><span>Benefits Summary</span><i data-icon="chevron-right"></i></a>
+            <a href="absence.html#balance"><span>Time Off Balance</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>Change Benefits</span><i data-icon="chevron-right"></i></a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
   </main>
-
-  <footer>Demo University is fictional. All data on this site is fake.</footer>
 </body>
 </html>

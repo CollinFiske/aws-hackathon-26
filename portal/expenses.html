@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expenses Hub - Demo University Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="shell.js" defer></script>
+</head>
+<body data-section="personal">
+  <main class="main">
+    <div class="band">
+      <div class="page-head">
+        <a class="back" href="index.html" aria-label="Back"><i data-icon="arrow-left"></i></a>
+        <h1>Expenses Hub</h1>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+        <section class="card">
+          <h2>My Expense Reports</h2>
+          <div class="stats">
+            <div><b>0</b><span>Drafts</span></div>
+            <div><b>1</b><span>In Progress</span></div>
+            <div><b>2</b><span>Paid</span></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Report</th><th>Description</th><th>Date</th><th class="num">Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>ER-000431</td><td>Poster printing for library event</td><td>Nov 3, 2026</td><td class="num">$38.75</td><td><span class="tag warn">Awaiting Approval</span></td></tr>
+                <tr><td>ER-000412</td><td>Library supplies reimbursement</td><td>Oct 14, 2026</td><td class="num">$23.40</td><td><span class="tag">Paid</span></td></tr>
+                <tr><td>ER-000398</td><td>Parking for staff training</td><td>Sep 30, 2026</td><td class="num">$12.00</td><td><span class="tag">Paid</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Create Expense Report</h2>
+          <form data-confirm="Expense report saved as a draft (demo only).">
+            <div class="field">
+              <label for="exp-desc">Description</label>
+              <input id="exp-desc" name="description" placeholder="What was it for?">
+            </div>
+            <div class="field">
+              <label for="exp-date">Expense date</label>
+              <input id="exp-date" name="date" type="date">
+            </div>
+            <div class="field">
+              <label for="exp-amount">Amount (USD)</label>
+              <input id="exp-amount" name="amount" inputmode="decimal" placeholder="0.00">
+            </div>
+            <button type="submit" class="btn">Save Draft</button><span class="status" role="status"></span>
+          </form>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card links-card">
+          <div class="links-group">
+            <h2 class="with-icon"><i data-icon="cards"></i>Expenses</h2>
+            <a href="#" data-demo><span>My Expense Reports</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>Upload Receipts</span><i data-icon="chevron-right"></i></a>
+            <a href="#" data-demo><span>Expense Policy</span><i data-icon="chevron-right"></i></a>
+          </div>
+        </section>
+        <section class="card">
+          <h2>Reminder</h2>
+          <p>Submit expenses within 60 days with an itemized receipt. Your supervisor approves reports before they are paid.</p>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Demo University is fictional. All data on this site is fake.</footer>
+  </main>
+</body>
+</html>
