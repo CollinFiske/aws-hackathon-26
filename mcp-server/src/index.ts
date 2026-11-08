@@ -141,12 +141,19 @@ const READ_PAGE_SCRIPT = `(() => {
     const style = getComputedStyle(el);
     return style.visibility !== "hidden" && style.display !== "none";
   };
+  const firstLabel = el => el.labels && el.labels[0] ? el.labels[0].innerText || el.labels[0].textContent : "";
+  const img = (el) => el.querySelector ? el.querySelector("img[alt]") : null;
+  const isButtonInput = (el) => el.tagName === "INPUT" && /^(submit|button|reset)$/i.test(el.type);
   const labelOf = (el) =>
     clean(el.innerText) ||
     clean(el.getAttribute("aria-label")) ||
-    clean(el.labels && el.labels[0] ? el.labels[0].innerText : "") ||
+    clean(firstLabel(el)) ||
     clean(el.getAttribute("placeholder")) ||
-    clean(el.getAttribute("name"));
+    clean(isButtonInput(el) ? el.value : "") ||
+    clean(el.getAttribute("title")) ||
+    clean(img(el) ? img(el).alt : "") ||
+    clean(el.getAttribute("name")) ||
+    clean(el.id);
 
   const elements = [];
   const all = document.querySelectorAll("a, button, input, select, textarea, [role=button]");
@@ -157,15 +164,20 @@ const READ_PAGE_SCRIPT = `(() => {
     elements.push({ id, tag: el.tagName.toLowerCase(), label: labelOf(el) });
 
     if (drawBadges) {
+      // Straddle the element's top-right corner so the badge sits above it, not on its text.
       const r = el.getBoundingClientRect();
       const badge = document.createElement("div");
       badge.setAttribute("data-saddle-badge", "");
       badge.textContent = id;
       badge.style.cssText =
         "position:absolute;z-index:2147483647;pointer-events:none;background:#d00;color:#fff;" +
-        "font:bold 11px/1 sans-serif;padding:2px 4px;border-radius:8px;" +
-        "left:" + (r.left + window.scrollX - 6) + "px;top:" + (r.top + window.scrollY - 6) + "px;";
+        "font:bold 10px/1 sans-serif;padding:1px 3px;border-radius:6px;opacity:0.9;";
       document.body.appendChild(badge);
+      const maxLeft = document.documentElement.scrollWidth - badge.offsetWidth - 2;
+      const left = Math.min(r.right + window.scrollX - badge.offsetWidth / 2, maxLeft);
+      const top = Math.max(r.top + window.scrollY - badge.offsetHeight + 2, 0);
+      badge.style.left = left + "px";
+      badge.style.top = top + "px";
     }
   }
   return { url: location.href, title: document.title, text, elements };
@@ -174,6 +186,28 @@ const READ_PAGE_SCRIPT = `(() => {
 type PageElement = { id: string; tag: string; label: string };
 // Labels from the most recent read_page, used as elementLabel in /check.
 let elementLabels = new Map<string, string>();
+
+// Tag the page's elements and refresh elementLabels. Retries if a navigation is still in progress.
+async function readPage(p: Page): Promise<{ elements: PageElement[] }> {
+  for (let attempt = 1; ; attempt++) {
+    await p.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+    if (!isInsidePortal(new URL(p.url()))) {
+      throw new Error(`No portal page is open (current: ${p.url()}). Call open_page first.`);
+    }
+    try {
+      const result = (await p.evaluate(READ_PAGE_SCRIPT)) as { elements: PageElement[] };
+      elementLabels = new Map(result.elements.map((e) => [e.id, e.label]));
+      return result;
+    } catch (err) {
+      const msg = (err as Error).message;
+      if (attempt >= 3 || !/context was destroyed|navigat/i.test(msg)) throw err;
+      log(`read_page: page was navigating, retrying (${attempt})`);
+      await p.waitForTimeout(300);
+    }
+  }
+}
+
+const selectorFor = (id: string) => `[data-saddle-id="${id.replace(/"/g, "")}"]`;
 
 // ---------- MCP server ----------
 
@@ -203,7 +237,9 @@ server.registerTool(
       if (gate.decision === "block") return blocked(gate.reason);
 
       log("open_page", target.href);
-      await p.goto(target.href, { waitUntil: "load" });
+      // Don't let one slow resource fail the whole navigation.
+      await p.goto(target.href, { waitUntil: "domcontentloaded", timeout: 15000 });
+      await p.waitForLoadState("load", { timeout: 5000 }).catch(() => {});
       elementLabels = new Map();
       return ok({ url: p.url(), title: await p.title() });
     } catch (err) {
@@ -230,16 +266,12 @@ server.registerTool(
     if (revoked) return text(REVOKED_TEXT);
     try {
       const p = await getPage();
-      // Never hand the agent error pages or anything outside the portal.
-      if (!isInsidePortal(new URL(p.url()))) {
-        return fail(`No portal page is open (current: ${p.url()}). Call open_page first.`);
-      }
-      const result = (await p.evaluate(READ_PAGE_SCRIPT)) as { elements: PageElement[] };
-      elementLabels = new Map(result.elements.map((e) => [e.id, e.label]));
+      // readPage refuses error pages and anything outside the portal.
+      const result = await readPage(p);
       log("read_page", p.url());
       return ok(result);
     } catch (err) {
-      log("read_page error", err);
+      log("read_page error:", (err as Error).message.split("\n")[0]);
       return fail(`read_page failed: ${(err as Error).message}`);
     }
   },
@@ -259,16 +291,30 @@ server.registerTool(
   async ({ id, text: value }) => {
     if (revoked) return text(REVOKED_TEXT);
     try {
-      const label = elementLabels.get(id);
-      if (label === undefined) return fail(`Unknown element id "${id}". Call read_page first.`);
       const p = await getPage();
+      let label = elementLabels.get(id);
+
+      // The page changed since the last read_page (navigation or re-render): rebuild the element map.
+      if (label === undefined || (await p.locator(selectorFor(id)).count()) === 0) {
+        const previous = label;
+        log(`act: element ${id} not on page, re-reading`);
+        await readPage(p);
+        label = elementLabels.get(id);
+        if (label === undefined) {
+          return fail(`Element ${id} is not on the current page (${p.url()}). Call read_page and pick an id from the new list.`);
+        }
+        // Ids are renumbered on every read; never click a different element than the agent asked for.
+        if (previous !== undefined && label !== previous) {
+          return fail(`The page changed: element ${id} is now "${label}" (was "${previous}"). Call read_page and pick again.`);
+        }
+      }
       const action = value !== undefined ? "type" : "click";
 
       const gate = await checkAction(p, action, label, p.url(), value);
       if (gate.decision === "revoked") return onRevoked();
       if (gate.decision === "block") return blocked(gate.reason);
 
-      const el = p.locator(`[data-saddle-id="${id.replace(/"/g, "")}"]`);
+      const el = p.locator(selectorFor(id));
       if (value !== undefined) {
         log("act fill", id, label);
         await el.fill(value, { timeout: 3000 });

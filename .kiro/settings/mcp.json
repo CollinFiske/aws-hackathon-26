@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "saddle-portal": {
+      "command": "npx",
+      "args": ["tsx", "C:/Users/cfisk/awshackathon26/mcp-server/src/index.ts"]
+    }
+  }
+}
