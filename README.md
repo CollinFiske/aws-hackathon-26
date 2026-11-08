@@ -8,7 +8,7 @@ policy rules, asks a Bedrock judge when the rules don't decide, and can revoke t
 > university system.
 
 ```
- Student's laptop                                      AWS (us-west-2)
+ Student's laptop                                      AWS (us-east-1)
 ┌──────────────────────────────────────────┐        ┌──────────────────────────────────────┐
 │ cli/  saddle run  ── polls /status ──────┼───────►│ API Gateway (HTTP API)               │
 │   └─ starts Kiro CLI (or rogue script)   │        │   └─ Lambda saddle-gateway           │
@@ -46,7 +46,7 @@ Everything local reads the repo-root `.env` (it is gitignored, never commit it):
 | `SADDLE_AGENT_ID` | mcp-server, cli | `saddle-demo` |
 | `PORTAL_URL` | mcp-server | `http://localhost:4000` |
 | `SCREENSHOT_BUCKET` | mcp-server | the S3 bucket name |
-| `AWS_REGION` | mcp-server | `us-west-2` |
+| `AWS_REGION` | mcp-server | `us-east-1` |
 | `BEDROCK_MODEL_ID` | reference only | the Lambda reads its own copy from its environment |
 | `DASHBOARD_URL` | cli | printed in the run header; `http://localhost:5173` until Amplify is up |
 | `MOCK_GATEWAY` | mcp-server | `true` = skip S3 and the API and allow everything (for working offline) |

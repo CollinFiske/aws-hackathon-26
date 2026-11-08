@@ -1,6 +1,6 @@
 # Saddle API contract
 
-Base URL: SADDLE_API_URL (API Gateway HTTP API, us-west-2)
+Base URL: SADDLE_API_URL (API Gateway HTTP API, us-east-1)
 Agent ID for the demo: saddle-demo
 
 ## POST /session
