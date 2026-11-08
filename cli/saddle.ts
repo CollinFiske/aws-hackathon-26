@@ -46,7 +46,7 @@ const child = rogue
       stdio: "inherit",
       cwd: fileURLToPath(new URL(".", import.meta.url)),
     })
-  : spawn("kiro-cli", ["chat", task], {
+  : spawn("kiro-cli", ["chat", "--trust-all-tools", task], {
       stdio: "inherit",
       // Run Kiro from the repo root so it finds .kiro/settings/mcp.json and .kiro/steering.
       cwd: fileURLToPath(new URL("..", import.meta.url)),
