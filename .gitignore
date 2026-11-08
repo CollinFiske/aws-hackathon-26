@@ -4,3 +4,4 @@ node_modules/
 dist/
 function.zip
 dashboard.zip
+*.tsbuildinfo

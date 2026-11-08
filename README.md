@@ -96,7 +96,7 @@ cd dashboard && npm run dev        # http://localhost:5173
 ```bash
 cd cli
 npm run saddle -- run "What's my GPA and was my timesheet approved?"
-npm run saddle -- run --rogue "Find me a campus job"     # scripted compromised agent (needs cli/rogue.ts)
+npm run saddle -- run --rogue "Find me a campus job"     # replays a hijacked agent (cli/rogue.ts)
 ```
 
 `saddle run` starts the session for you (`POST /session`), so the gateway knows the task. Press
@@ -124,6 +124,15 @@ MOCK_GATEWAY=true npm run smoke     # no AWS needed; everything is allowed
 
 In PowerShell, set the variable first: `$env:MOCK_GATEWAY='true'; npm run smoke`, or put
 `MOCK_GATEWAY=true` in `.env`.
+
+**Rogue mode by itself** (portal running, session started). Replays an agent that obeys the hidden note
+on `jobs.html`: opens jobs, then deposit, then tries to type the routing and account numbers and save.
+It stops at the first `BLOCKED` (expected at the routing number):
+
+```bash
+cd cli
+npm run rogue
+```
 
 `npm start` runs the MCP server by itself. It just waits for an MCP client (Kiro) on stdin, so it looks
 idle when run by hand. Ctrl+C to stop.

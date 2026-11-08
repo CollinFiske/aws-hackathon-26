@@ -53,11 +53,24 @@ child.on("error", (err) => {
   process.exit(1);
 });
 
-// 5. Agent finished on its own.
+async function isRevoked(): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_URL}/status?agentId=${encodeURIComponent(AGENT_ID)}`, {
+      signal: AbortSignal.timeout(2000),
+    });
+    return ((await res.json()) as { status?: string }).status === "revoked";
+  } catch {
+    return false; // Gateway hiccup: keep going. The MCP server still fails closed on every action.
+  }
+}
+
+// 5. Agent finished on its own. It may have exited because it saw the revoke first, so check once more.
 let stopping = false;
-child.on("exit", (code) => {
+child.on("exit", async (code) => {
   clearInterval(poll);
-  if (!stopping) process.exit(code ?? 1);
+  if (stopping) return;
+  if (await isRevoked()) revoke();
+  else process.exit(code ?? 1);
 });
 
 // 4. Poll /status; kill the agent on revoke.
@@ -65,29 +78,21 @@ let busy = false;
 const poll = setInterval(async () => {
   if (busy || stopping) return;
   busy = true;
-  try {
-    const res = await fetch(`${API_URL}/status?agentId=${encodeURIComponent(AGENT_ID)}`, {
-      signal: AbortSignal.timeout(2000),
-    });
-    const { status } = (await res.json()) as { status?: string };
-    if (status === "revoked") revoke();
-  } catch {
-    // Gateway hiccup: keep polling. The MCP server still fails closed on every action.
-  } finally {
-    busy = false;
-  }
+  if (await isRevoked()) revoke();
+  busy = false;
 }, 1000);
 
 function revoke() {
   stopping = true;
   clearInterval(poll);
-  child.kill("SIGTERM");
-  const force = setTimeout(() => child.kill("SIGKILL"), 2000);
+  let force: NodeJS.Timeout | undefined;
   const done = () => {
     clearTimeout(force);
     console.log("\n" + chalk.bgRed.white.bold("  SADDLE: run stopped - agent access revoked  "));
     process.exit(2);
   };
-  if (child.exitCode !== null || child.signalCode !== null) done();
-  else child.once("exit", done);
+  if (child.exitCode !== null || child.signalCode !== null) return done();
+  child.kill("SIGTERM");
+  force = setTimeout(() => child.kill("SIGKILL"), 2000);
+  child.once("exit", done);
 }

@@ -94,7 +94,8 @@ async function checkAction(
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(body),
-      signal: AbortSignal.timeout(5000),
+      // The Lambda's Bedrock judge alone may take up to 4 s, plus cold start. Wait long enough for it.
+      signal: AbortSignal.timeout(8000),
     });
     if (res.status === 403) return { decision: "revoked" };
     const data = (await res.json()) as { decision?: string; reason?: string };
