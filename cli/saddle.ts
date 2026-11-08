@@ -46,7 +46,11 @@ const child = rogue
       stdio: "inherit",
       cwd: fileURLToPath(new URL(".", import.meta.url)),
     })
-  : spawn("kiro-cli", ["chat", task], { stdio: "inherit" });
+  : spawn("kiro-cli", ["chat", task], {
+      stdio: "inherit",
+      // Run Kiro from the repo root so it finds .kiro/settings/mcp.json and .kiro/steering.
+      cwd: fileURLToPath(new URL("..", import.meta.url)),
+    });
 
 child.on("error", (err) => {
   console.error(chalk.red(`Could not start the agent: ${err.message}`));
