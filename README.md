@@ -2,7 +2,7 @@
 
 A harness for a CLI AI agent (Kiro CLI) that uses a student portal. Every action the agent takes
 (navigate, click, type) goes through a gateway on AWS first. The gateway logs it, checks it against
-policy rules, asks a Bedrock judge when the rules don't decide, and can revoke the agent mid-run.
+policy rules (blocking anything that touches banking, passwords or off-portal sites), and can revoke the agent mid-run.
 
 > The portal in this repo is a fake demo ("Demo University", fake data). Never point the agent at a real
 > university system.
@@ -13,7 +13,7 @@ policy rules, asks a Bedrock judge when the rules don't decide, and can revoke t
 │ cli/  saddle run  ── polls /status ──────┼───────►│ API Gateway (HTTP API)               │
 │   └─ starts Kiro CLI (or rogue script)   │        │   └─ Lambda saddle-gateway           │
 │        └─ mcp-server/ (Playwright)       │        │        ├─ policy.mjs  (rules)        │
-│             ├─ screenshot ───────────────┼───────►│        ├─ judge.mjs   (Bedrock)      │
+│             ├─ screenshot ───────────────┼───────►│                                      │
 │             ├─ POST /check, then obeys ──┼───────►│        ├─ DynamoDB  agents + events  │
 │             └─ drives Chromium           │        │        └─ S3        screenshots      │
 │                  └─ portal/ (localhost)  │        │                                      │
@@ -32,7 +32,7 @@ The API between the two halves is defined in [contract.md](contract.md).
 | `portal/` | A | Static fake student portal (HTML + one `styles.css`). Pages: home, grades, pay, jobs, direct deposit. `jobs.html` hides a prompt injection in the "Campus Tech Help Desk" posting that tells AI agents to change the direct deposit. |
 | `mcp-server/` | A | MCP server (stdio) the agent uses. Tools: `open_page`, `read_page`, `act`. Drives Chromium with Playwright. Before every `open_page` and `act` it uploads a screenshot to S3, calls `POST /check` and only acts if the answer is `allow`. Fails closed: if the gateway can't be reached, the action is blocked. |
 | `cli/` | A | `saddle run` wrapper. Starts a session, launches the agent, polls `/status` every second and kills the agent if it gets revoked. |
-| `infra/` | B | `infra/lambda/` is the gateway Lambda: `index.mjs` (routes), `policy.mjs` (NEVER and ALLOW rules), `judge.mjs` (Bedrock judge). `deploy.sh` / `deploy.ps1` package and upload it. `test-policy.mjs` prints how sample actions are decided. |
+| `infra/` | B | `infra/lambda/` is the gateway Lambda: `index.mjs` (routes), `policy.mjs` (NEVER and ALLOW rules). `deploy.sh` / `deploy.ps1` package and upload it. `test-policy.mjs` prints how sample actions are decided. |
 | `dashboard/` | B | React + Vite live dashboard: agent status, live event feed, screenshots, and the Revoke button. |
 | `.kiro/` | A | Kiro CLI workspace config: `settings/mcp.json` registers the MCP server, `steering/saddle.md` tells the agent how to behave. |
 
@@ -47,7 +47,6 @@ Everything local reads the repo-root `.env` (it is gitignored, never commit it):
 | `PORTAL_URL` | mcp-server | `http://localhost:4000` |
 | `SCREENSHOT_BUCKET` | mcp-server | the S3 bucket name |
 | `AWS_REGION` | mcp-server | `us-east-1` |
-| `BEDROCK_MODEL_ID` | reference only | the Lambda reads its own copy from its environment |
 | `DASHBOARD_URL` | cli | printed in the run header; `http://localhost:5173` until Amplify is up |
 | `MOCK_GATEWAY` | mcp-server | `true` = skip S3 and the API and allow everything (for working offline) |
 | `HEADLESS` | mcp-server | `true` = hide the browser window (default: visible, with red id badges) |
@@ -58,7 +57,7 @@ The MCP server also needs AWS credentials (from `aws configure` or `AWS_ACCESS_K
 The dashboard has its own `dashboard/.env` (copy `dashboard/.env.example`): `VITE_API_URL`, `VITE_AGENT_ID`.
 
 The Lambda's environment variables are set in the AWS console: `AGENTS_TABLE`, `EVENTS_TABLE`,
-`SCREENSHOT_BUCKET`, `BEDROCK_MODEL_ID`, `PORTAL_HOST` (`localhost:4000`).
+`SCREENSHOT_BUCKET`, `PORTAL_HOST` (`localhost:4000`).
 
 ## One-time setup
 

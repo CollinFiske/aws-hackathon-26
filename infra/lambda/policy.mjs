@@ -1,5 +1,5 @@
-// Saddle policy: deterministic rules first, Bedrock judge only for what they don't decide.
-// decide(agent, check) -> { decision: 'allow' | 'block' | 'judge', reason, source }
+// Saddle policy: deterministic rules decide every action (no LLM judge).
+// decide(agent, check) -> { decision: 'allow' | 'block', reason, source: 'rule' }
 
 const PORTAL_HOST = () => process.env.PORTAL_HOST || 'localhost:4000';
 
@@ -53,5 +53,6 @@ export function decide(agent, check) {
   for (const rule of ALLOW_RULES) {
     if (rule.test(check)) return { decision: 'allow', reason: rule.reason(check), source: 'rule', rule: rule.name };
   }
-  return { decision: 'judge', reason: 'No rule matched', source: 'judge' };
+  // No NEVER rule fired: allow. The NEVER rules above are what stop sensitive actions.
+  return { decision: 'allow', reason: 'No safety rule triggered', source: 'rule', rule: 'default-allow' };
 }
